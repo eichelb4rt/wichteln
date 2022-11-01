@@ -1,3 +1,4 @@
+from operator import itemgetter
 import random
 import argparse
 from tabulate import tabulate
@@ -9,9 +10,9 @@ def main():
     args = parser.parse_args()
     players = list(range(args.n))
     random.shuffle(players)
-
     presents = [[player, players[(i + 1) % len(players)]] for i, player in enumerate(players)]
-    print(tabulate(presents, headers=["Person", "bekommt Geschenk"], tablefmt="grid"))
+    presents.sort(key=itemgetter(0))
+    print(tabulate(presents, headers=["Person", "bekommt Geschenk"], tablefmt="rounded_grid", colalign=("right", "left")))
 
 
 if __name__ == "__main__":
